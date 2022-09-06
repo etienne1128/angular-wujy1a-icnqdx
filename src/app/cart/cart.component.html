@@ -1,0 +1,5 @@
+<p *ngIf="items.length == 0">Votre panier est vide :(</p>
+<div *ngFor="let item of items">
+  <h3>{{item.name}}</h3>
+  <p>{{item.price | currency}}</p>
+</div>

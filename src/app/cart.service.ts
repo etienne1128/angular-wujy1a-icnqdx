@@ -1,23 +1,32 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Product } from './products';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private items:Array<Object> = [];
+  private items:Array<Product> = [];
 
-  constructor() { }
+  constructor(
+    private http : HttpClient
+  ) { }
 
-  ajouterPanier(produit:Object):void{
+  ajouterPanier(produit:Product):void{
     this.items.push(produit);
   }
 
-  getItems():Array<Object>{
+  getItems():Array<Product>{
     return this.items;
   }
 
-  viderPanier():Array<Object>{
+  viderPanier():Array<Product>{
     this.items = [];
     return this.items;
+  }
+
+  getFrais(){
+    return this.http.get<{type: string, price: number}[]>('/assets/shipping.json');
   }
 }
